@@ -23,18 +23,17 @@ Mô hình TCP/IP tiêu chuẩn bao gồm **4 tầng** như sau:
     *   **Chức năng:** Đóng gói dữ liệu thành khung (frame), quản lý địa chỉ vật lý (MAC) và truyền luồng bit qua cáp hoặc sóng vô tuyến,.
 
 ### 2. So sánh mô hình TCP/IP và mô hình OSI
-![Compare](/ChienNX/01.CCNA/TCP/IP/Img/compare.png)
-Dựa trên các nguồn tài liệu, việc so sánh mô hình **OSI** (Open Systems Interconnection) và mô hình **TCP/IP** (Transmission Control Protocol/Internet Protocol) có thể được phân tích qua những điểm giống và khác nhau cốt lõi như sau:
 
-### 1. Điểm giống nhau giữa hai mô hình
+#### 1. Điểm giống nhau giữa hai mô hình
 Cả hai mô hình đều là những khung tham chiếu quan trọng trong lĩnh vực mạng máy tính với các đặc điểm chung:
 *   **Kiến trúc phân lớp:** Cả hai đều chia quy trình truyền thông mạng thành các tầng (lớp) riêng biệt để giảm thiểu độ phức tạp và dễ quản lý.
 *   **Các tầng tương đồng:** Cả hai đều có tầng **Mạng (Network)** và tầng **Giao vận (Transport)** với chức năng tương tự nhau.
 *   **Kỹ thuật chuyển mạch:** Cả hai cùng sử dụng kỹ thuật chuyển gói (Packet Switching) để truyền dữ liệu qua mạng.
 *   **Cơ chế hoạt động:** Đều sử dụng cơ chế đóng gói (encapsulation) khi gửi dữ liệu và giải nén (decapsulation) khi nhận dữ liệu qua từng tầng.
 
-### 2. Sự khác biệt cơ bản
-Mô hình OSI và TCP/IP có những triết lý phát triển và ứng dụng thực tế rất khác biệt:
+#### 2. Sự khác biệt cơ bản
+
+![Compare](/ChienNX/01.CCNA/TCP/IP/Img/compare.png)
 
 | Đặc điểm | Mô hình OSI | Mô hình TCP/IP |
 | :--- | :--- | :--- |
@@ -44,15 +43,58 @@ Mô hình OSI và TCP/IP có những triết lý phát triển và ứng dụng 
 | **Phương pháp tiếp cận** | Tiếp cận theo chiều dọc; mỗi tầng thực hiện một nhiệm vụ riêng biệt, không kết hợp. | Tiếp cận theo chiều ngang; các tầng cấp cao (Phiên, Trình bày) được kết hợp vào tầng Ứng dụng. |
 | **Độ tin cậy** | Thường được coi là mô hình cũ, chủ yếu dùng để tham khảo. | Được chuẩn hóa toàn cầu, nhiều người tin cậy và sử dụng phổ biến. |
 
-### 3. Mối liên hệ và cách ánh xạ giữa các tầng
+#### 3. Mối liên hệ và cách ánh xạ giữa các tầng
 Mô hình TCP/IP được coi là phiên bản rút gọn của mô hình OSI nhằm tập trung vào ứng dụng thực tế. Cụ thể:
 *   **Tầng Ứng dụng của TCP/IP** tương ứng với sự kết hợp của 3 tầng: **Ứng dụng, Trình bày và Phiên** của mô hình OSI.
 *   **Tầng Giao vận** được giữ nguyên tên và chức năng ở cả hai mô hình.
 *   **Tầng Internet của TCP/IP** tương ứng với **tầng Mạng** của OSI (đổi tên từ Network thành Internet).
 *   **Tầng Truy cập mạng của TCP/IP** là sự kết hợp của 2 tầng thấp nhất trong OSI là **Vật lý và Liên kết dữ liệu**.
+   
+ ### 3.Tìm hiểu về giao thức TCP/UDP và so sánh giữa chúng
 
-### 3. Workflow truyền thông tin từ A đến B (TCP/IP)
-![Flow](/ChienNX/01.CCNA/TCP/IP/Img/image.png)
+#### 1. Giao thức TCP (Transmission Control Protocol)
+*   **Khái niệm:** Là giao thức **hướng kết nối** (connection-oriented), nghĩa là thiết bị gửi và nhận phải thiết lập một kết nối ổn định trước khi dữ liệu bắt đầu được truyền đi.
+
+*   **Cơ chế Bắt tay 3 bước (3-way handshake):** Để thiết lập kết nối, TCP sử dụng quy trình:
+    ![3 bước](/ChienNX/01.CCNA/TCP/IP/Img/image.png)
+
+    1.  **Bước 1:** Host A gửi gói tin **SYN** để yêu cầu kết nối.
+    2.  **Bước 2:** Host B nhận được và gửi lại gói tin **SYN/ACK** để xác nhận và sẵn sàng kết nối.
+    3.  **Bước 3:** Host A gửi lại gói tin **ACK** để hoàn tất việc thiết lập.
+   
+   (Synchronize - đồng bộ hóa) và ACK (Acknowledgment - xác nhận)
+
+*   **Đặc điểm nổi bật:**
+    *   **Độ tin cậy cao:** Đảm bảo dữ liệu đến đích đầy đủ, đúng thứ tự và không bị lỗi,.
+    *   **Cơ chế báo nhận (ACK):** Khi nhận được dữ liệu, bên nhận sẽ gửi xác nhận. Nếu bên gửi không nhận được xác nhận, nó sẽ gửi lại cho đến khi thành công,.
+    *   **Kiểm soát luồng và tắc nghẽn:** TCP điều chỉnh tốc độ truyền để tránh gây quá tải cho thiết bị nhận hoặc mạng.
+*   **Ứng dụng:** Phù hợp cho các dịch vụ yêu cầu độ chính xác tuyệt đối như duyệt web (HTTP/HTTPS), gửi email (SMTP), truyền tệp (FTP) hoặc đăng nhập từ xa (SSH),,.
+
+#### 2. Giao thức UDP (User Datagram Protocol)
+*   **Khái niệm:** Là giao thức **không kết nối** (connectionless), thực hiện truyền dữ liệu ngay lập tức mà không cần thiết lập kết nối trước (kiểu truyền "best effort"),.
+*   **Đặc điểm nổi bật:**
+    *   **Tốc độ nhanh:** UDP bỏ qua quá trình kiểm tra lỗi và xác nhận nên tốc độ truyền tải cao hơn nhiều so với TCP,,.
+    *   **Không đảm bảo tin cậy:** Gói tin có thể bị mất, trùng lặp hoặc đến không đúng thứ tự mà bên gửi không hề hay biết,.
+    *   **Header nhẹ:** Chỉ có kích thước **8 byte**, giúp giảm tải cho hệ thống,,.
+*   **Ứng dụng:** Ưu tiên cho các dịch vụ cần tốc độ thời gian thực và có thể chấp nhận mất mát dữ liệu nhỏ như truyền phát video trực tuyến (Streaming), trò chơi trực tuyến (Gaming), đàm thoại qua mạng (VoIP) hoặc các truy vấn nhỏ như DNS,,,.
+
+#### 3. So sánh chi tiết TCP và UDP
+- Giống nhau: đều là các giao thức mạng TCP/IP, có chức năng kết nối các máy lại với nhau và có thể gửi dữ liệu cho nhau….
+![TCP/UDP](/ChienNX/01.CCNA/TCP/IP/Img/UDP-TCP.png)
+- Khác nhau:
+
+| Tiêu chí | Giao thức TCP | Giao thức UDP |
+| :--- | :--- | :--- |
+| **Tính chất kết nối** | Hướng kết nối (có bắt tay 3 bước), | Không kết nối (truyền ngay lập tức), |
+| **Độ tin cậy** | Rất cao, đảm bảo dữ liệu nguyên vẹn, | Thấp, không đảm bảo dữ liệu đến đích, |
+| **Thứ tự dữ liệu** | Đảm bảo đúng thứ tự gửi đi, | Không sắp xếp thứ tự gói tin, |
+| **Tốc độ** | Chậm hơn do có nhiều thủ tục kiểm soát, | Rất nhanh do lược bỏ các thủ tục phức tạp, |
+| **Kích thước Header** | Lớn (20 - 60 byte), | Nhỏ (8 byte), |
+| **Kiểm soát luồng** | Có cơ chế kiểm soát luồng và tắc nghẽn | Không có cơ chế kiểm soát luồng |
+| **Hình thức truyền** | Stream (luồng byte nối Byte), | Datagram (từng khối dữ liệu rời rạc) |
+
+### 4. Workflow truyền thông tin từ A đến B (TCP/IP)
+![Flow](/ChienNX/01.CCNA/TCP/IP/Img/flow.png)
 
 Khi thiết bị A gửi thông tin đến thiết bị B, quy trình diễn ra qua các bước đóng gói và giải nén dữ liệu,:
 

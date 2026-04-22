@@ -63,8 +63,6 @@ Mô hình OSI (Open Systems Interconnection) là một khung khái niệm chia c
  
 ![Flow](/ChienNX/01.CCNA/OSI/Img/image.png)
 
-Dựa trên các nguồn tài liệu, dưới đây là phân tích chi tiết và rút gọn quy trình truyền dữ liệu từ **thiết bị A** sang **thiết bị B** thông qua 7 tầng của mô hình OSI:
-
 ### 1. Tại thiết bị gửi (Thiết bị A) – Quá trình đóng gói (Encapsulation)
 Dữ liệu di chuyển từ tầng cao nhất xuống tầng thấp nhất, mỗi tầng sẽ bọc thêm một tiêu đề (header) chứa thông tin điều khiển riêng.
 
