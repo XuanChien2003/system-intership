@@ -55,16 +55,38 @@ Mô hình TCP/IP được coi là phiên bản rút gọn của mô hình OSI nh
 #### 1. Giao thức TCP (Transmission Control Protocol)
 *   **Khái niệm:** Là giao thức **hướng kết nối** (connection-oriented), nghĩa là thiết bị gửi và nhận phải thiết lập một kết nối ổn định trước khi dữ liệu bắt đầu được truyền đi.
 
-*   **Cơ chế Bắt tay 3 bước (3-way handshake):** Để thiết lập kết nối, TCP sử dụng quy trình:
-    ![3 bước](/ChienNX/01.CCNA/TCP/IP/Img/image.png)
+Cơ chế **bắt tay 3 bước (3-way handshake)** của giao thức TCP không chỉ đơn thuần là gửi các gói tin qua lại, mà là một quá trình **đồng bộ hóa các số thứ tự (Sequence Number)** và thiết lập các thông số cần thiết để đảm bảo việc truyền dữ liệu sau đó diễn ra tin cậy và chính xác.
 
-    1.  **Bước 1:** Host A gửi gói tin **SYN** để yêu cầu kết nối.
-    2.  **Bước 2:** Host B nhận được và gửi lại gói tin **SYN/ACK** để xác nhận và sẵn sàng kết nối.
-    3.  **Bước 3:** Host A gửi lại gói tin **ACK** để hoàn tất việc thiết lập.
-   
-   (Synchronize - đồng bộ hóa) và ACK (Acknowledgment - xác nhận)
+![3 bước](/ChienNX/01.CCNA/TCP/IP/Img/image.png)
 
-*   **Đặc điểm nổi bật:**
+#### **Bước 1: Thiết lập yêu cầu (SYN)**
+Host A muốn kết nối với Host B sẽ gửi một phân đoạn (segment) đặc biệt:
+*   **Cờ điều khiển:** Bật cờ **SYN** (Synchronize) để yêu cầu đồng bộ hóa.
+*   **Số thứ tự (Sequence Number - SEQ):** Host A tự chọn một số thứ tự khởi đầu ngẫu nhiên, ví dụ **SEQ = 100**.
+*   **Đặc điểm:** Phân đoạn này không chứa dữ liệu thực tế (no data), nhưng trong TCP, hoạt động gửi cờ SYN vẫn được tính tương đương với **1 byte** dữ liệu để quản lý thứ tự.
+
+#### **Bước 2: Xác nhận và phản hồi (SYN/ACK)**
+Host B nhận được gói tin SYN và phản hồi lại để chấp nhận kết nối:
+*   **Cờ điều khiển:** Bật cả hai cờ **SYN** và **ACK** (Acknowledgment).
+*   **Số xác nhận (Acknowledgment Number):** Vì Host B đã nhận được SEQ=100 của A và cờ SYN được tính là 1 byte, nên Host B sẽ mong muốn nhận byte tiếp theo từ A là **101**. Do đó, **ACK = 101**.
+*   **Số thứ tự (SEQ) của Host B:** Host B cũng tự chọn một số thứ tự khởi đầu cho mình, ví dụ **SEQ = 300**.
+*   **Đặc điểm:** Tương tự, gói tin này cũng được tính là 1 byte cho phần quản lý dù không có dữ liệu.
+
+#### **Bước 3: Hoàn tất thiết lập (ACK)**
+Host A nhận được phản hồi từ Host B và gửi gói tin cuối cùng để xác nhận:
+*   **Cờ điều khiển:** Chỉ bật cờ **ACK**.
+*   **Số thứ tự (SEQ):** Host A gửi byte mà Host B đang mong đợi, nên **SEQ = 101**.
+*   **Số xác nhận (ACK):** Host A xác nhận đã nhận được phân đoạn SEQ=300 của Host B bằng cách yêu cầu byte tiếp theo là **301**. Do đó, **ACK = 301**.
+
+**Tóm tắt ý nghĩa các cờ và thông số:**
+
+ SYN (Synchronize): Yêu cầu thiết lập và đồng bộ hóa các số thứ tự khởi đầu.
+
+ ACK (Acknowledgment): Xác nhận đã nhận được dữ liệu và thông báo số thứ tự của byte tiếp theo mà bên nhận đang chờ đợi.
+
+ Sequence Number: Dùng để đánh số thứ tự từng byte dữ liệu được truyền đi, đảm bảo tính toàn vẹn và thứ tự của thông điệp.
+
+*   **Đặc điểm nổi bật của giao thức TCP:**
     *   **Độ tin cậy cao:** Đảm bảo dữ liệu đến đích đầy đủ, đúng thứ tự và không bị lỗi,.
     *   **Cơ chế báo nhận (ACK):** Khi nhận được dữ liệu, bên nhận sẽ gửi xác nhận. Nếu bên gửi không nhận được xác nhận, nó sẽ gửi lại cho đến khi thành công,.
     *   **Kiểm soát luồng và tắc nghẽn:** TCP điều chỉnh tốc độ truyền để tránh gây quá tải cho thiết bị nhận hoặc mạng.
@@ -72,7 +94,7 @@ Mô hình TCP/IP được coi là phiên bản rút gọn của mô hình OSI nh
 
 #### 2. Giao thức UDP (User Datagram Protocol)
 *   **Khái niệm:** Là giao thức **không kết nối** (connectionless), thực hiện truyền dữ liệu ngay lập tức mà không cần thiết lập kết nối trước (kiểu truyền "best effort"),.
-*   **Đặc điểm nổi bật:**
+*   **Đặc điểm nổi bật của giao thức UDP:**
     *   **Tốc độ nhanh:** UDP bỏ qua quá trình kiểm tra lỗi và xác nhận nên tốc độ truyền tải cao hơn nhiều so với TCP,,.
     *   **Không đảm bảo tin cậy:** Gói tin có thể bị mất, trùng lặp hoặc đến không đúng thứ tự mà bên gửi không hề hay biết,.
     *   **Header nhẹ:** Chỉ có kích thước **8 byte**, giúp giảm tải cho hệ thống,,.
