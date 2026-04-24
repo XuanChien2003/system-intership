@@ -16,11 +16,11 @@
 - LAN là một mạng cục bộ (Viết tắt của Local Area Network), được định nghĩa là tất cả các máy tính trong cùng một miền quảng bá(broadcast domain).
 - Broadcast domain là phạm vi trong nhà mạng mà một gói tin Broadcast gửi ra sẽ tới được tất cả thiết bị trong phạm vi đó.
 - Các Router (bộ định tuyến chặn tin broadcast) trong khi các switch chỉ chuyển tiếp chúng.
-
-![Vlan](/ChienNX/01.CCNA/VLAN/Img/vlan.png)
  
 - VLAN (Virtual Local Area Network) là một kỹ thuật cho phép chia một mạng LAN vật lý thành các mạng logic riêng biệt, được gọi là các VLAN. Chúng hoạt động độc lập với nhau, ngay cả khi các thiết bị được kết nối vào cùng một switch (bộ chuyển mạch).
-
+  
+![Vlan](/ChienNX/01.CCNA/VLAN/Img/vlan.png)
+ 
 ### Phân loại VLAN:
 ![Vlan](/ChienNX/01.CCNA/VLAN/Img/loaivlan.png)
 

@@ -36,7 +36,9 @@ Gói tin từ VLAN 10 khi truyền qua Trunk Port sẽ được thêm Tag VLAN 1
 
 ### 4.Chuẩn ISL (Inter-Switch Link) của Cisco
 #### Định nghĩa
+
 ![ISL](/ChienNX/01.CCNA/VLAN/Img/isl.png)
+
 Inter-Switch Link (ISL) là một giao thức đóng gói khung (frame) độc quyền của Cisco được sử dụng để cấu hình các đường trung kế (trunk) tại Lớp 2 trong mô hình OSI.
 
 #### Cách hoạt động ISL
@@ -97,9 +99,11 @@ Trong đó slot/port_number là cổng cần cấu hình. Lựa chọn một tro
 
 #### VTP (VLAN Trunking Protocol)
 
+VTP domain (hay còn được gọi là VLAN managerment domain) bao gồm 1 SW hoặc một vài SW kết nối với nhau với nhiệm vụ quản trị 1 VTP domain name. 1 SW chỉ có thể nằm trong 1 VTP domain.
+
 ![VTP](/ChienNX/01.CCNA/VLAN/Img/vtp.png)
 
-VTP (VLAN Trunking Protocol) là giao thức độc quyền của Cisco, được dùng để quản lý và đồng bộ hóa VLAN trên nhiều Switch trong cùng một hệ thống mạng.
+VTP (VLAN Trunking Protocol) là giao thức độc quyền của Cisco, được dùng để quản lý và đồng bộ hóa VLAN trên nhiều Switch khác nhau trong cùng một hệ thống mạng lớn.
 
 `Mục đích`
 
@@ -120,9 +124,9 @@ Lưu ý: VTP chỉ đồng bộ VLAN, không đồng bộ Port Assignment (gán 
 **VTP Server:**
 
 - Chế độ mặc định của switch Cisco
-- Tạo, sửa, xóa VLANs.
-- Các thay đổi sẽ được quảng bá đến các switch khác trong cùng một VTP domain.
-- Switch Server lưu trữ thông tin về VLAN trong NVRAM (Non-Volatile RAM).
+- Có quyền tạo VLAN, Sửa VLAN, Xóa VLAN
+- Có quyền gửi thông tin đi cho các Switch khác trong cùng một VTP domain.
+- Có thể học thông tin từ Switch khác sau đó chuyển đi cho switch khác học
 
 **VTP Client:**
 
@@ -132,9 +136,11 @@ Lưu ý: VTP chỉ đồng bộ VLAN, không đồng bộ Port Assignment (gán 
 
 **VTP Transparent:**
 
-- Không nhận/sử dụng VLAN từ VTP Server.
-- Cho phép tạo VLAN cục bộ (local).
-- Vẫn chuyển tiếp VTP Advertisements đến Switch khác.
+- Có thể tạo, sửa, xóa VLAN nhưng chỉ trong nộ bộ của Switch đó thôi
+- Không đồng bộ cũng không gửi thông tin cấu hình đi cho người khác.
+- Làm trạm trung chuyển các thông tin quảng bá của VTP tới Client
+  
+ Chú ý: Khi nào thì dùng Transparent: Trên SW Server có 5 VLAN: 2 tới 5. Nhưng VLAN 2 là phòng Sale có nhiều nhân viên nên cần có SW mở rộng nhiều cổng. Lúc này trên SW transparent chỉ cần cấu mình mình VLAN 2. SW transparent sẽ không cập nhật thông tin của các VLAN khác.
 
 `Cấu trúc của VTP Advertisement (Thông điệp VTP)`
 
