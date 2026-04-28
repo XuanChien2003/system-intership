@@ -13,7 +13,7 @@ Khi một cổng được cấu hình trunk, dữ liệu từ nhiều VLAN sẽ 
 
  Gói tin VLAN khi đi qua cổng trunk sẽ được gắn thẻ VLAN (VLAN Tagging) theo chuẩn 802.1Q.
 
-![trunk](/ChienNX/01.CCNA/VLAN/Img/trunk.png)
+![trunk](/ChienNX/01.CCNA/4.VLAN/Img/trunk.png)
 #### Cách hoạt động
 
 - Thêm một thẻ (tag VLAN) vào gói tin Ethernet để xác định VLAN mà nó thuộc về.
@@ -37,7 +37,7 @@ Gói tin từ VLAN 10 khi truyền qua Trunk Port sẽ được thêm Tag VLAN 1
 ### 4.Chuẩn ISL (Inter-Switch Link) của Cisco
 #### Định nghĩa
 
-![ISL](/ChienNX/01.CCNA/VLAN/Img/isl.png)
+![ISL](/ChienNX/01.CCNA/4.VLAN/Img/isl.png)
 
 Inter-Switch Link (ISL) là một giao thức đóng gói khung (frame) độc quyền của Cisco được sử dụng để cấu hình các đường trung kế (trunk) tại Lớp 2 trong mô hình OSI.
 
@@ -56,7 +56,7 @@ Inter-Switch Link (ISL) là một giao thức đóng gói khung (frame) độc q
 ### 5.Access port và Trunk port
 
 #### Access port (Cổng truy nhập)
-![Access port](/ChienNX/01.CCNA/VLAN/Img/Access%20port%20(Cổng%20truy%20nhập).png)
+![Access port](/ChienNX/01.CCNA/4.VLAN/Img/Access%20port%20(Cổng%20truy%20nhập).png)
 - Một cổng trên Switch sẽ hoạt động trong chế độ cổng truy nhập (Access link) hoặc cổng trung kế (Trunk link).
 - Trong chế độ cổng truy nhập, cổng chỉ thuộc một VLAN. Tất cả các máy tính cắm vào cổng này đều thuộc VLAN đó.
 - Frame được gửi trên cổng truy nhập sẽ tuân theo chuẩn định dạng khung ethernet (802.3).
@@ -73,7 +73,7 @@ Switch(config)#switchport mode access
 Trong đó slot/port_number là cổng cần cấu hình.
 
 #### Trunk port (Cổng trung kế)
-![Trunk port](/ChienNX/01.CCNA/VLAN/Img/Trunk%20port%20(Cổng%20trung%20kế).png)
+![Trunk port](/ChienNX/01.CCNA/4.VLAN/Img/Trunk%20port%20(Cổng%20trung%20kế).png)
 - Cổng trung kế (Trunk link) là một kết nối vật lý và logic để hỗ trợ các VLAN trên các Switch liên kết với nhau.
 - Cổng trung kế cho phép frame của nhiều VLAN có thể truyền trên đó. Một cổng trung kế không được gán cho một VLAN riêng biệt.
 - Cổng trung kế thường được dùng để kết nối giữa các Switch hoặc giữa Switch và Router. Chính vì vậy cổng trung kế thường là cổng có băng thông lớn.
@@ -101,7 +101,7 @@ Trong đó slot/port_number là cổng cần cấu hình. Lựa chọn một tro
 
 VTP domain (hay còn được gọi là VLAN managerment domain) bao gồm 1 SW hoặc một vài SW kết nối với nhau với nhiệm vụ quản trị 1 VTP domain name. 1 SW chỉ có thể nằm trong 1 VTP domain.
 
-![VTP](/ChienNX/01.CCNA/VLAN/Img/vtp.png)
+![VTP](/ChienNX/01.CCNA/4.VLAN/Img/vtp.png)
 
 VTP (VLAN Trunking Protocol) là giao thức độc quyền của Cisco, được dùng để quản lý và đồng bộ hóa VLAN trên nhiều Switch khác nhau trong cùng một hệ thống mạng lớn.
 
@@ -167,7 +167,7 @@ STP tránh các vấn đề nghiệm trọng từ vòng lặp như:
 - Duplicate frames: Các thiết bị nhận được nhiều bản sao của cùng một gói tin, gây nhầm lẫn và xử lý sai.
 - MAC address table instability: Bảng địa chỉ MAC trên switch bị cập nhật liên tục, gây khó khăn cho việc chuyển tiếp gói tin.
 - 
-![Spaning tree](/ChienNX/01.CCNA/VLAN/Img/spaningtree.png)
+![Spaning tree](/ChienNX/01.CCNA/4.VLAN/Img/spaningtree.png)
 
 `Nguyên lý hoạt động`
 

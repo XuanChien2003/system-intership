@@ -3,7 +3,7 @@
 ### 1. Các tầng (layers) của mô hình TCP/IP
 Mô hình TCP/IP tiêu chuẩn bao gồm **4 tầng** như sau:
 
-![Tcp](/ChienNX/01.CCNA/TCP/IP/Img/tcp-ip_model.png)
+![Tcp](/ChienNX/01.CCNA/3.TCP/IP/Img/tcp-ip_model.png)
 
 *   **Tầng Ứng dụng (Application Layer):**
     *   **Khái niệm:** Là tầng giao tiếp cao nhất, cung cấp các dịch vụ mạng trực tiếp cho người dùng,.
@@ -33,7 +33,7 @@ Cả hai mô hình đều là những khung tham chiếu quan trọng trong lĩn
 
 #### 2. Sự khác biệt cơ bản
 
-![Compare](/ChienNX/01.CCNA/TCP/IP/Img/compare.png)
+![Compare](/ChienNX/01.CCNA/3.TCP/IP/Img/compare.png)
 
 | Đặc điểm | Mô hình OSI | Mô hình TCP/IP |
 | :--- | :--- | :--- |
@@ -57,7 +57,7 @@ Mô hình TCP/IP được coi là phiên bản rút gọn của mô hình OSI nh
 
 Cơ chế **bắt tay 3 bước (3-way handshake)** của giao thức TCP không chỉ đơn thuần là gửi các gói tin qua lại, mà là một quá trình **đồng bộ hóa các số thứ tự (Sequence Number)** và thiết lập các thông số cần thiết để đảm bảo việc truyền dữ liệu sau đó diễn ra tin cậy và chính xác.
 
-![3 bước](/ChienNX/01.CCNA/TCP/IP/Img/image.png)
+![3 bước](/ChienNX/01.CCNA/3.TCP/IP/Img/image.png)
 
 #### **Bước 1: Thiết lập yêu cầu (SYN)**
 Host A muốn kết nối với Host B sẽ gửi một phân đoạn (segment) đặc biệt:
@@ -102,7 +102,7 @@ Host A nhận được phản hồi từ Host B và gửi gói tin cuối cùng 
 
 #### 3. So sánh chi tiết TCP và UDP
 - Giống nhau: đều là các giao thức mạng TCP/IP, có chức năng kết nối các máy lại với nhau và có thể gửi dữ liệu cho nhau….
-![TCP/UDP](/ChienNX/01.CCNA/TCP/IP/Img/UDP-TCP.png)
+![TCP/UDP](/ChienNX/01.CCNA/3.TCP/IP/Img/UDP-TCP.png)
 - Khác nhau:
 
 | Tiêu chí | Giao thức TCP | Giao thức UDP |
@@ -116,7 +116,7 @@ Host A nhận được phản hồi từ Host B và gửi gói tin cuối cùng 
 | **Hình thức truyền** | Stream (luồng byte nối Byte), | Datagram (từng khối dữ liệu rời rạc) |
 
 ### 4. Workflow truyền thông tin từ A đến B (TCP/IP)
-![Flow](/ChienNX/01.CCNA/TCP/IP/Img/flow.png)
+![Flow](/ChienNX/01.CCNA/3.TCP/IP/Img/flow.png)
 
 Khi thiết bị A gửi thông tin đến thiết bị B, quy trình diễn ra qua các bước đóng gói và giải nén dữ liệu,:
 

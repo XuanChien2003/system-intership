@@ -1,5 +1,5 @@
 # Cấu hình chia VLAN trên Switch
-![](/ChienNX/01.CCNA/VLAN/Img/BtVLAN.png)
+![](/ChienNX/01.CCNA/4.VLAN/Img/BtVLAN.png)
 
 |VLAN|Port|
 |----|----|
@@ -40,7 +40,7 @@ Kiểm tra các port gán đúng vlan chưa
 ```
 Switch#show vlan
 ```
-![](/ChienNX/01.CCNA/VLAN/Img/active.png)
+![](/ChienNX/01.CCNA/4.VLAN/Img/active.png)
 ### 4.Gán các port vào VLAN đã định trước
 ```
 Switch>enable
@@ -75,7 +75,7 @@ Switch(config-if)#end
 ```
 Switch#show vlan
 ```
-![](/ChienNX/01.CCNA/VLAN/Img/Taovlan.png)
+![](/ChienNX/01.CCNA/4.VLAN/Img/Taovlan.png)
 
 ### 6.Kiểm tra ping từ các PC trong cùng VLAN -> OK
 
@@ -101,10 +101,10 @@ Switch#show vlan
 ping [địa_chỉ_IP]
 ```
 
-![](/ChienNX/01.CCNA/VLAN/Img/pingok.png)
+![](/ChienNX/01.CCNA/4.VLAN/Img/pingok.png)
 
 ###  7.Ping giữa các VLAN khác nhau -> Không ping được.
 
 - Từ PC-1 ping đến PC khác. nếu cùng vlan sẽ trả về `reply`, khác vlan trả về `Request time out`.
   
-![](/ChienNX/01.CCNA/VLAN/Img/pingchuaok.png)
+![](/ChienNX/01.CCNA/4.VLAN/Img/pingchuaok.png)

@@ -1,7 +1,7 @@
 # Tìm hiểu VLAN
 ## 1.Tại sao cần chia VLAN
 
-![Vlan](/ChienNX/01.CCNA/VLAN/Img/chiavlan.png)
+![Vlan](/ChienNX/01.CCNA/4.VLAN/Img/chiavlan.png)
 
 *   **Tăng cường tính bảo mật:** VLAN cho phép **tách biệt các nhóm người dùng** và ngăn chặn sự truy cập trái phép vào các tài nguyên nhạy cảm. Các thiết bị ở các VLAN khác nhau không thể giao tiếp trực tiếp với nhau nếu không có thiết bị định tuyến, giúp bảo vệ thông tin nội bộ của các phòng ban như kế toán hay nhân sự khỏi các phòng ban khác.
 *   **Cải thiện hiệu suất mạng:** Kỹ thuật này giúp chia nhỏ mạng LAN thành các **miền quảng bá (broadcast domain) riêng biệt**. Điều này giúp giảm thiểu lưu lượng quảng bá không cần thiết, giải quyết vấn đề tắc nghẽn, từ đó tối ưu hóa băng thông và tăng tốc độ truy cập cho hệ thống.
@@ -19,10 +19,10 @@
  
 - VLAN (Virtual Local Area Network) là một kỹ thuật cho phép chia một mạng LAN vật lý thành các mạng logic riêng biệt, được gọi là các VLAN. Chúng hoạt động độc lập với nhau, ngay cả khi các thiết bị được kết nối vào cùng một switch (bộ chuyển mạch).
   
-![Vlan](/ChienNX/01.CCNA/VLAN/Img/vlan.png)
+![Vlan](/ChienNX/01.CCNA/4.VLAN/Img/vlan.png)
  
 ### Phân loại VLAN:
-![Vlan](/ChienNX/01.CCNA/VLAN/Img/loaivlan.png)
+![Vlan](/ChienNX/01.CCNA/4.VLAN/Img/loaivlan.png)
 
  VLAN sẽ được chia thành 3 loại gồm:
 
@@ -34,7 +34,7 @@
 
  ### cách hoạt động VLAN:
 
- ![Vlan](/ChienNX/01.CCNA/VLAN/Img/hoatdong.png)
+ ![Vlan](/ChienNX/01.CCNA/4.VLAN/Img/hoatdong.png)
 
 *   **Xác định bằng VLAN ID:** Mỗi mạng VLAN được định danh trên các switch bằng một chỉ số gọi là **VLAN ID**. Mỗi cổng (port) trên switch sẽ được gán cho một hoặc nhiều VLAN ID cụ thể; nếu không được chỉ định, cổng đó sẽ thuộc về một VLAN mặc định.
 *   **Cơ chế gắn thẻ (Tagging):**
@@ -60,7 +60,7 @@
 - Không thể chuyển tiếp lưu lượng mạng từ mạng VLAN này sang các VLAN khác.
 
 ### 4.VLAN và LAN khác nhau như thế nào ?
-![So sánh VLAN và LAN](/ChienNX/01.CCNA/VLAN/Img/vlanvslan.png)
+![So sánh VLAN và LAN](/ChienNX/01.CCNA/4.VLAN/Img/vlanvslan.png)
 
 |Tiêu chí so sánh|LAN(Local Area Network)|VLAN(Virtual Local Area Network)|
   |------|---------|----------|

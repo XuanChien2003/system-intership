@@ -5,7 +5,7 @@
 ## Các layer của mô hình OSI: khái niệm, đặc điểm, chức năng các tầng
 Mô hình OSI (Open Systems Interconnection) là một khung khái niệm chia các chức năng truyền thông mạng thành **7 tầng (lớp)** riêng biệt.
 
-![Tầng OSI](/ChienNX/01.CCNA/OSI/Img/Cactang.png)
+![Tầng OSI](/ChienNX/01.CCNA/2.OSI/Img/Cactang.png)
 
 ### 1. Tầng 7 – Application Layer (Tầng Ứng dụng)
 ![Application Layer](/ChienNX/01.CCNA/OSI/Img/application_layer.png)
@@ -14,7 +14,7 @@ Mô hình OSI (Open Systems Interconnection) là một khung khái niệm chia c
 *   **Chức năng:** Cung cấp dịch vụ đầu cuối ảo, quản lý việc truy cập và chuyển đổi tệp tin, cũng như các dịch vụ thư mục và thư điện tử.
 
 ### 2. Tầng 6 – Presentation Layer (Tầng Trình bày)
-![Presentation Layer](/ChienNX/01.CCNA/OSI/Img/presentation_layer.png)
+![Presentation Layer](/ChienNX/01.CCNA/2.OSI/Img/presentation_layer.png)
 *   **Khái niệm:** Còn được gọi là tầng phiên dịch, chịu trách nhiệm xử lý các vấn đề liên quan đến cú pháp và ngữ nghĩa của dữ liệu.
 *   **Đặc điểm:** Đảm bảo dữ liệu gửi đi từ tầng ứng dụng của một hệ thống có thể được tầng ứng dụng của hệ thống khác hiểu được.
 *   **Chức năng:** 
@@ -23,20 +23,20 @@ Mô hình OSI (Open Systems Interconnection) là một khung khái niệm chia c
     *   **Nén dữ liệu:** Giảm kích thước dữ liệu để tối ưu hóa băng thông truyền tải.
 
 ### 3. Tầng 5 – Session Layer (Tầng Phiên)
-![Session Layer](/ChienNX/01.CCNA/OSI/Img/session_layer.png)
+![Session Layer](/ChienNX/01.CCNA/2.OSI/Img/session_layer.png)
 *   **Khái niệm:** Quản lý các "phiên" (session) – là các kết nối tạm thời để trao đổi dữ liệu giữa hai ứng dụng.
 *   **Đặc điểm:** Điều phối mạng giữa hai ứng dụng từ khi bắt đầu đến lúc kết thúc và xử lý các xung đột đồng bộ hóa.
 *   **Chức năng:** Thiết lập, duy trì, đồng bộ hóa và kết thúc các cuộc hội thoại giữa hai thiết bị. Nó cho phép phục hồi từ các điểm kiểm tra (checkpoints) nếu xảy ra sự cố trong quá trình truyền.
 
 ### 4. Tầng 4 – Transport Layer (Tầng Vận chuyển/Giao vận)
-![Transport Layer](/ChienNX/01.CCNA/OSI/Img/transport_layer.png)
+![Transport Layer](/ChienNX/01.CCNA/2.OSI/Img/transport_layer.png)
 *   **Khái niệm:** Đảm bảo việc truyền dữ liệu đáng tin cậy và toàn vẹn giữa hai thiết bị đầu cuối.
 *   **Đặc điểm:** Dữ liệu tại tầng này được gọi là các Phân đoạn (Segments). Sử dụng các giao thức chính như TCP (tin cậy, có kết nối) và UDP (không kết nối, tốc độ nhanh).
 *   **Chức năng:** 
    Chia nhỏ dữ liệu từ tầng trên thành các phân đoạn, kiểm soát luồng (flow control) để phù hợp tốc độ nhận, và thực hiện kiểm soát lỗi để yêu cầu truyền lại khi cần thiết.
 
 ### 5. Tầng 3 – Network Layer (Tầng Mạng)
-![Network Layer](/ChienNX/01.CCNA/OSI/Img/network_layer.png)
+![Network Layer](/ChienNX/01.CCNA/2.OSI/Img/network_layer.png)
 *   **Khái niệm:**  Chịu trách nhiệm truyền tải dữ liệu giữa các thiết bị nằm ở các mạng khác nhau.
 *   **Đặc điểm:** Đơn vị dữ liệu tại đây là các Gói tin (Packets)
 . Tầng này sử dụng địa chỉ logic (địa chỉ IP) để định danh thiết bị
@@ -44,14 +44,14 @@ Mô hình OSI (Open Systems Interconnection) là một khung khái niệm chia c
   Định tuyến (Routing) để xác định con đường vật lý tối ưu nhất cho dữ liệu đi từ nguồn đến đích. Nó cũng thực hiện phân mảnh và tái hợp các gói tin khi cần thiết
 
 ### 6. Tầng 2 – Data Link Layer (Tầng Liên kết dữ liệu)
-![Data Link Layer](/ChienNX/01.CCNA/OSI/Img/datalink_layer.png)
+![Data Link Layer](/ChienNX/01.CCNA/2.OSI/Img/datalink_layer.png)
 *   **Khái niệm:** Quản lý việc truyền dữ liệu tin cậy giữa hai thiết bị trong cùng một mạng nội bộ.
 *   **Đặc điểm:** Dữ liệu được đóng gói thành các Khung (Frames). Tầng này gán địa chỉ vật lý (MAC) cho mỗi thiết bị.
 *   **Chức năng:** 
    Kiểm soát truy cập môi trường truyền dẫn (như Ethernet), phát hiện và sửa lỗi ở mức độ khung dữ liệu, và kiểm soát luồng giữa các thiết bị nội bộ.
 
 ### 7. Tầng 1 – Physical Layer (Tầng Vật lý)
-![Physical Layer](/ChienNX/01.CCNA/OSI/Img/physical_layer.png)
+![Physical Layer](/ChienNX/01.CCNA/2.OSI/Img/physical_layer.png)
 *   **Khái niệm:** Bao gồm các thiết bị phần cứng và phương tiện truyền dẫn vật lý để truyền dòng bit dữ liệu.
 *   **Đặc điểm:** Dữ liệu được biểu diễn dưới dạng dãy các Bit (0 và 1). Tầng này bao gồm các chuẩn về cáp, đầu nối và tín hiệu điện/quang
 *   **Chức năng:** 
@@ -61,7 +61,7 @@ Mô hình OSI (Open Systems Interconnection) là một khung khái niệm chia c
 
  Quy trình truyền thông tin từ thiết bị A sang thiết bị B, trong đó dữ liệu đi xuống qua 7 tầng tại bên gửi và đi ngược lên qua 7 tầng tại bên nhận.
  
-![Flow](/ChienNX/01.CCNA/OSI/Img/image.png)
+![Flow](/ChienNX/01.CCNA/2.OSI/Img/image.png)
 
 ### 1. Tại thiết bị gửi (Thiết bị A) – Quá trình đóng gói (Encapsulation)
 Dữ liệu di chuyển từ tầng cao nhất xuống tầng thấp nhất, mỗi tầng sẽ bọc thêm một tiêu đề (header) chứa thông tin điều khiển riêng.

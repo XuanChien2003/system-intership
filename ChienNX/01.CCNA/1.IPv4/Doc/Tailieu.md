@@ -16,10 +16,10 @@
  + Định danh mạng (Network identifier): Xác định mạng mà thiết bị đang kết nối.
  + Định danh máy chủ (Host identifier): Xác định thiết bị cụ thể trong mạng đó
 
- ![Cấu trúc IPv4](/ChienNX/01.CCNA/IPv4/Img/cautruc.png)
+ ![Cấu trúc IPv4](/ChienNX/01.CCNA/1.IPv4/Img/cautruc.png)
 
 ## 4. Các lớp của IPv4:
-![Lớp IPv4](/ChienNX/01.CCNA/IPv4/Img/lop.png)
+![Lớp IPv4](/ChienNX/01.CCNA/1.IPv4/Img/lop.png)
 
 IPv4 được phân thành năm lớp chính: A, B, C, D, và E. Mỗi lớp chứa một dải địa chỉ IP hợp lệ.
 |Lớp |Phạm vi giá trị(Thập Phân)|Octet đầu(Nhị phân)| Số bit cho mạng|Mục đích sử dụng chính|

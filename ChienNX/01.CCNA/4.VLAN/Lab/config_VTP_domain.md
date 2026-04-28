@@ -6,11 +6,11 @@
 - VLAN10 : 192.168.10.0/24
 - VLAN20 : 192.168.20.0/24
 
-![](/ChienNX/01.CCNA/VLAN/Img/lab2.1.png)
+![](/ChienNX/01.CCNA/4.VLAN/Img/lab2.1.png)
 
 **Quy hoạch IP và kết nối:**
 
-![](/ChienNX/01.CCNA/VLAN/Img/lab2.2.png)
+![](/ChienNX/01.CCNA/4.VLAN/Img/lab2.2.png)
 
 # Cấu hình VTP
 ## 1. Đặt IP cho các PC theo phân hoạch
@@ -63,7 +63,7 @@ SW1(config)#exit
 
 Kiểm tra lại:
 
-![](/ChienNX/01.CCNA/VLAN/Img/lab2.3.png)
+![](/ChienNX/01.CCNA/4.VLAN/Img/lab2.3.png)
 
 ### Trên SW2
 Đặt tên:
@@ -106,7 +106,7 @@ SW2(config)#exit
 
 Kiểm tra lại:
 
-![](/ChienNX/01.CCNA/VLAN/Img/lab2.3.png)
+![](/ChienNX/01.CCNA/4.VLAN/Img/lab2.3.png)
 
 ## 3. Cấu hình VTP
 ### Đặt IP cho các interface VLAN trên 2 SW
@@ -204,7 +204,7 @@ SW2#
 
 ## 4. Các lệnh kiểm tra sau khi cấu hình xong
 
-![](/ChienNX/01.CCNA/VLAN/Img/lab2.4.png)
+![](/ChienNX/01.CCNA/4.VLAN/Img/lab2.4.png)
 
 ```
 SW# show vtp status
