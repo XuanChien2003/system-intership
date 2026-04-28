@@ -58,7 +58,7 @@ Inter-Switch Link (ISL) là một giao thức đóng gói khung (frame) độc q
 #### Access port (Cổng truy nhập)
 ![Access port](/ChienNX/01.CCNA/VLAN/Img/Access%20port%20(Cổng%20truy%20nhập).png)
 - Một cổng trên Switch sẽ hoạt động trong chế độ cổng truy nhập (Access link) hoặc cổng trung kế (Trunk link).
-- Trong chế độ cổng truy nhập, cổng chỉ thuộc một VLAN. Tất cả các máy tính cắm vào cổng mày đều thuộc VLAN đó.
+- Trong chế độ cổng truy nhập, cổng chỉ thuộc một VLAN. Tất cả các máy tính cắm vào cổng này đều thuộc VLAN đó.
 - Frame được gửi trên cổng truy nhập sẽ tuân theo chuẩn định dạng khung ethernet (802.3).
 - Cổng truy nhập thường dùng khi cổng được kết nối đến máy trạm.
 

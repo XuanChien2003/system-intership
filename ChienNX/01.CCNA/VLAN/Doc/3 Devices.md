@@ -25,7 +25,7 @@ Giá thành đa dạng: Modem có nhiều mức giá khác nhau, phù hợp vớ
 ![Modem](/ChienNX/01.CCNA/VLAN/Img/router.png)
 
 Khái niệm: Router là thiết bị mạng hoạt động ở Layer 3 (Network Layer) của mô hình OSI. Nó chịu trách nhiệm định tuyến gói tin giữa các mạng khác nhau.
-### Chức năng của Modem:
+### Chức năng của Router:
  - Định tuyến: Xác định đường đi tối ưu cho các gói tin dựa trên địa chỉ IP. Định tuyến gói tin từ nguồn đến đích bằng cách sử dụng bảng định tuyến (Routing Table).
  - Kết nối nhiều mạng khác nhau (LAN → WAN, LAN → Internet).
  - Chuyển đổi địa chỉ IP (NAT) để cho phép nhiều thiết bị trong mạng nội bộ truy cập Internet.
