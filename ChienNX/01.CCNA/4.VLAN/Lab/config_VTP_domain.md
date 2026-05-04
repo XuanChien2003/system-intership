@@ -1,6 +1,6 @@
 ## Cấu hình VTP domain
 ### Sơ đồ lab:
-![](/ChienNX/01.CCNA/VLAN/Img/lab2.png)
+![](/ChienNX/01.CCNA/4.VLAN/Img/lab2.png)
 
 **Quy hoạch VLAN:**
 - VLAN10 : 192.168.10.0/24

@@ -35,26 +35,63 @@ Destination      Gateway        Interface
 - Các giao thức như RIP, OSPF, BGP được sử dụng để tự động cập nhật bảng định tuyến.
 - Giúp router học và chia sẻ thông tin về các đường đi trong mạng.
 
-## 2. Phân loại Routing
-#### Định tuyến tĩnh
+## 2. Chức năng của routing
+
+-Các bộ định tuyến chủ yếu đảm nhận **ba chức năng chính**:
+
+- **Xác định đường dẫn:** Bộ định tuyến cố gắng tìm đường dẫn tốt nhất bằng cách phân tích các chỉ số mạng như độ trì hoãn, bước nhảy và tốc độ.
+
+- **Chuyển tiếp dữ liệu:** Bộ định tuyến chuyển tiếp dữ liệu đến thiết bị tiếp theo trên đường dẫn đã chọn để cuối cùng là đến điểm đích của nó.
+
+- **Cân bằng tải:** Đôi khi, bộ định tuyến có thể gửi bản sao của cùng một gói dữ liệu bằng cách sử dụng nhiều đường dẫn khác nhau. Bộ định tuyến làm thế này để giảm lỗi do tổn thất dữ liệu, tạo khả năng dự phòng và quản lý lưu lượng truy cập.
+  
+## 3. Phân loại Routing
+ Định tuyến (routing) có thể chia thành 3 loại: Static Routing, Deafault Routing, Dynamic Routing.
 
   ![Phân loại](/ChienNX/01.CCNA/5.Routing/Img/Phanloai.png)
 
-- **Static Routing(Định tuyến tĩnh)**: 
-  - Quản trị viên mạng cấu hình thủ công bảng định tuyến. Các tuyến đường này không thay đổi trừ khi quản trị viên thay đổi thủ công.
-  - Phù hợp cho mạng nhỏ, đơn giản, không tốn tài nguyên CPU.
-  - Nhưng không linh hoạt khi mạng thay đổi, khó quản lý khi mạng lớn.
-- **Dynamic Routing(Định tuyến động)**:
-  - Router tự động học đường đi bằng giao thức định tuyến như RIP, OSPF, BGP.
-  - Có thể tự cập nhật khi mạng thay đổi (link down, thêm mạng mới). Phù hợp cho mạng lớn, phức tạp.
-    - **RIP(Routing Information Protocol):** Một giao thức định tuyến động sử dụng thuật toán Distance Vector. RIP hạn chế phạm vi của nó với số lượng nhảy tối đa(15), và không phù hợp cho các mạng lớn.
-    - **OSPF(Open Shortest Path First):** Giao thức định tuyến link-state, tối ưu hoá quá trình tìm đường đi ngắn nhất trong mạng lớn hơn so với RIP, và hỗ trợ nhiều tính năng như phân vùng mạng.
-    - **BGP(Border Gateway Protocol):** Giao thức định tuyến giữa các hệ thống tự trị (AS), chủ yếu dùng trong Internet để trao đổi thông tin 
-    - **EIGRP(Enhanced Interior Gateway Routing Protocol)**: Giao thức nâng cao của Cisco, kết hợp ưu điểm của RIP và OSPF.
-- **Default Routing(Định tuyến mặc định)**:
-  - Khi router không biết đường đi, nó sẽ gửi gói tin ra default route một địa chỉ mặc định( thường dùng để ra internet).  
+### 1. Định tuyến tĩnh (Static routing)
 
-## 3. Các thuật toán routing
+-Là kiểu định tuyến mà quản trị viên mạng phải thiết lập thủ công đường đi của các gói tin.
+
+-Phù hợp với các mạng nhỏ, có cấu trúc đơn giản và ít thay đổi.
+Không tiêu tốn tài nguyên hệ thống nhưng khó mở rộng và thiếu tính linh hoạt.
+
+-Nhược điểm của routing tĩnh:
+
+- Không có khả năng tự động cập nhật đường đi.
+
+- Phải cấu hình thủ công khi mạng có sự thay đổi.
+
+- Khả năng mở rộng kém, phù hợp với mô hình mạng nhỏ.
+
+### 2. Định tuyến mặc định (Default Routing)
+
+-Routing mặc định là một kỹ thuật trong đó một bộ routing được cấu hình để gửi tất cả các gói đến cùng một thiết bị hop và không quan trọng nó có thuộc một mạng cụ thể hay không. Gói được truyền tới thiết bị mà nó được cấu hình trong
+
+-Routing mặc định. Routing mặc định được sử dụng khi mạng xử lý một điểm thoát duy nhất.
+
+-Nó cũng hữu ích khi phần lớn các mạng truyền tải phải truyền dữ liệu đến cùng một thiết bị hp.
+
+-Khi một tuyến đường cụ thể được đề cập trong bảng routing, bộ routing sẽ chọn tuyến đường cụ thể hơn là tuyến đường mặc định. Tuyến đường mặc định chỉ được chọn khi một tuyến đường cụ thể không được đề cập trong bảng routing.
+
+### 3.Định tuyến động (Dynamic routing)
+
+-Các router sẽ tự động trao đổi thông tin để tính toán đường đi tốt nhất cho gói tin.
+
+-Sử dụng các giao thức định tuyến động như RIP, OSPF, EIGRP, BGP.
+  Phù hợp với các mạng lớn, có sự thay đổi thường xuyên.
+
+| Giao thức                                          | Loại            | Tốc độ hội tụ | Sử dụng                  |
+| -------------------------------------------------- | --------------- | ------------- | ------------------------ |
+| RIP (Routing Information Protocol)                 | Distance Vector | Chậm          | Mạng nhỏ                 |
+| OSPF (Open Shortest Path First)                    | Link-State      | Nhanh         | Mạng lớn, doanh nghiệp   |
+| EIGRP (Enhanced Interior Gateway Routing Protocol) | Hybrid          | Nhanh         | Cisco, doanh nghiệp      |
+| BGP (Border Gateway Protocol)                      | Path-Vector     | Chậm          | Định tuyến trên internet |
+
+  ![](/ChienNX/01.CCNA/5.Routing/Img/dinhtuyen.png)
+
+## 4. Các thuật toán routing
 
 Các giao thức định tuyến sử dụng các thuật toán khác nhau để tìm ra đường đi tối ưu.
 
@@ -70,7 +107,9 @@ Các giao thức định tuyến sử dụng các thuật toán khác nhau để
   - Dùng trong định tuyến giữa các hệ thống mạng lớn.
   - Ví dụ: BGP (dùng trên Internet).
 
-## 4. Nguyên lý hoạt động của Routing
+## 5. Nguyên lý hoạt động của Routing
+  ![](/ChienNX/01.CCNA/5.Routing/Img/nguyenli.png)
+
 - **Khởi động phiên giao tiếp**: Quá trình bắt đầu khi một nút mạng(máy khách hoặc máy chủ) khởi tạo một phiên giao tiếp qua mạng, sử dụng giao thức HTTP. Đây là bước đầu tiên để thiết lập kết nối giữa hai thiết bị.
 - **Phân tách gói tin**: Thiết bị nguồn chia thông tin lớn thành các gói tin nhỏ để đảm bảo việc truyền tải đáng tin cậy và hiệu quả. Quá trình này được gọi là phân tách và đóng gói dữ liệu. Mỗi gói tin được gán nhãn với:
   - **Địa chỉ IP đích**: Địa chỉ của nút mạng mà gói tin cần đến.
@@ -87,5 +126,3 @@ Các giao thức định tuyến sử dụng các thuật toán khác nhau để
 - Khi tất cả các gói tin đến được nút đích:
   - Các gói tin được tái tạo lại để trở thành thông tin hoàn chỉnh như lúc gửi đi từ nguồn.
   - Thiết bị đích thực hiện các cơ chế kiểm tra lỗi để đảm bảo tính toàn vẹn và xác thực của dữ liệu.
-
-  ![](/ChienNX/01.CCNA/5.Routing/Img/nguyenli.png)
