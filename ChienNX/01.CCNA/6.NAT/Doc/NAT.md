@@ -104,6 +104,7 @@ Có 3 loại NAT chính:
 ---
 
 ## 4. Cơ chế hoạt động của NAT
+![Hoạt động](../Img/image.png)
 
 Quá trình NAT diễn ra tại Router qua các bước (VD thiết bị nội bộ truy cập Internet):
 

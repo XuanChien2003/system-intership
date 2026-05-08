@@ -8,7 +8,7 @@ Mô hình OSI (Open Systems Interconnection) là một khung khái niệm chia c
 ![Tầng OSI](/ChienNX/01.CCNA/2.OSI/Img/Cactang.png)
 
 ### 1. Tầng 7 – Application Layer (Tầng Ứng dụng)
-![Application Layer](/ChienNX/01.CCNA/OSI/Img/application_layer.png)
+![Application Layer](/ChienNX/01.CCNA/2.OSI/Img/application_layer.png)
 *   **Khái niệm:** Là tầng trên cùng, đóng vai trò là giao diện trực tiếp giữa người dùng và hệ thống mạng thông qua các ứng dụng phần mềm.
 *   **Đặc điểm:** Tầng này cung cấp các giao thức hỗ trợ gửi, nhận và trình bày dữ liệu cho người dùng cuối Các giao thức phổ biến bao gồm HTTP/HTTPS (duyệt web), SMTP/POP3 (email) và FTP (truyền tệp).
 *   **Chức năng:** Cung cấp dịch vụ đầu cuối ảo, quản lý việc truy cập và chuyển đổi tệp tin, cũng như các dịch vụ thư mục và thư điện tử.
