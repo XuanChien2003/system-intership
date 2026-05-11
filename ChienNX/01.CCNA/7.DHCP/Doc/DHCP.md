@@ -105,129 +105,130 @@ Binding giúp DHCP Server biết IP nào đang được thiết bị nào sử d
 
 ## III. Cách DHCP hoạt động
 ![DHCP](../Img/hđ.png)
-Quá trình cấp IP của DHCP thường được gọi là **DORA**:
 
-- **D**iscover
-- **O**ffer
-- **R**equest
-- **A**cknowledge
+**`Bước 1` - Trạng thái khởi tạo**:
 
-### Bước 1: DHCP Discover
+- Client ở INIT (hoặc INIT-REBOOT nếu vừa khởi động lại và nhớ lease cũ).
+- Client dùng UDP `68`; Server dùng UDP `67`
+- Gói ban đầu đi **Broadcast** vì client chưa có IP.
+- Trường địa chỉ MAC/IP đặc biệt:
 
-Client vừa kết nối vào mạng nên chưa có IP.
+  - Src IP: `0.0.0.0` (client) -> Dst IP: `255.255.255.255` (broadcast) ở bước đầu.
+  - Dựa trên MAC client (chaddr) để định danh.
 
-Client gửi gói **DHCP Discover** để tìm DHCP Server.
+**`Bước 2` - Discovery (Tìm kiếm máy chủ DHCP)**:
 
-Thông tin quan trọng:
+Khi một thiết bị (Client) kết nối vào mạng lần đầu, nó không có địa chỉ IP. Client sẽ gửi một gói tin DHCPDISCOVER dưới dạng broadcast (phát tán toàn mạng) để tìm kiếm DHCP Server. Gói tin này chứa:
 
-- Source IP: `0.0.0.0`
-- Destination IP: `255.255.255.255`
-- Kiểu gửi: Broadcast
+- **Địa chỉ nguồn (Source Address)** là `0.0.0.0`.
+- **Địa chỉ đích (Destination Address)** là `255.255.255.255`.
 
-Ý nghĩa: "Có DHCP Server nào trong mạng không? Hãy cấp IP cho tôi."
+Mục đích là để thông báo cho tất cả các thiết bị trong mạng rằng nó cần một địa chỉ IP.
 
-### Bước 2: DHCP Offer
+**`Bước 3` - Offer (Đề nghị cấp phát địa chỉ IP)**:
 
-DHCP Server nhận được Discover và gửi lại **DHCP Offer**.
+Khi DHCP Server nhận được gói DHCPDISCOVER, nó sẽ phản hồi bằng một gói tin DHCPOFFER. Gói tin DHCPOFFER được gửi đến địa chỉ MAC của Client. Gói tin này bao gồm:
 
-Gói Offer chứa:
+- Địa chỉ IP tạm thời được đề nghị cho Client.
+- Thông tin mạng như Subnet Mask, Default Gateway, DNS Server, và thời gian thuê địa chỉ IP (Lease Time).
 
-- IP đề nghị cấp cho client
-- Subnet Mask
-- Default Gateway
-- DNS Server
-- Lease Time
+**`Bước 4` - Request (Yêu cầu sử dụng địa chỉ IP)**:
 
-Ý nghĩa: "Tôi có thể cấp cho bạn IP này."
+Sau khi nhận được gói tin DHCPOFFER, Client sẽ gửi một gói tin DHCPREQUEST để chấp nhận địa chỉ IP mà DHCP Server đề nghị. Gói tin này xác nhận rằng Client muốn sử dụng địa chỉ IP được cấp. Đồng thời, Client cũng gửi yêu cầu xác nhận các thông tin khác như Subnet Mask, Gateway, DNS.
 
-### Bước 3: DHCP Request
+**`Bước 5` - Acknowledgement (Xác nhận)**:
 
-Client nhận được Offer và gửi **DHCP Request** để đồng ý sử dụng IP được đề nghị.
+DHCP Server gửi gói tin DHCPACK để xác nhận rằng địa chỉ IP đã được cấp phát thành công cho Client. Gói tin này cũng bao gồm thời gian thuê địa chỉ IP (Lease Time) và các thông tin cấu hình mạng. Sau khi nhận được DHCPACK, Client cấu hình địa chỉ IP trên giao diện mạng của nó và bắt đầu sử dụng.
 
-Ý nghĩa: "Tôi đồng ý nhận IP này."
+**`Bước 6` - DHCP Negative Acknowledge (DHCP NAK)**:
 
-Nếu có nhiều DHCP Server cùng gửi Offer, client thường chọn một Offer và gửi Request để xác nhận.
+- **Mục đích**: Thông điệp này được gửi bởi `DHCP Server` để thông báo cho Client rằng yêu cầu của nó không được chấp nhận. Điều này có thể xảy ra nếu địa chỉ IP mà Client yêu cầu không còn hợp lệ (ví dụ: đã được cấp phát cho máy khác) hoặc nếu có lỗi trong quá trình gia hạn. Client sẽ yêu cầu lại IP mới.
+- **Nguồn**: `DHCP Server` (địa chỉ của server)
+- **Đích**: Địa chỉ Unicast đến `DHCP Client`
 
-### Bước 4: DHCP ACK
+**`Bước 7` - DHCP Release - Giải phóng IP**
 
-DHCP Server gửi **DHCP ACK** để xác nhận việc cấp IP thành công.
+- Thông điệp này được gửi bởi `DHCP Client` để thông báo cho Server biết rằng nó không còn sử dụng địa chỉ IP đã được cấp phát nữa. Điều này thường xảy ra khi Client tắt máy hoặc ngắt kết nối mạng.
 
-Sau khi nhận ACK, client cấu hình IP trên card mạng và có thể giao tiếp trong mạng.
+- **Nguồn**: DHCP Client(địa chỉ IP đã được cấp phát).
 
-Ý nghĩa: "IP này đã được cấp cho bạn, bạn có thể sử dụng."
+- **Đích**: Địa chỉ Unicast đến DHCP Server.
+
+**`Ngoài ra`: DHCP INFORM / LEASE RENEWALL (Gia hạn thuê IP)**:
+
+- Với `DHCP INFORM`:
+
+  - Các thiết bị không sử dụng DHCP để lấy địa chỉ IP vẫn có thể sử dụng khả năng cấu hình khác của nó. Một Client có thể gửi một bản tin DHCP INFORM để yêu cầu bất kì máy chủ có sẵn nào gửi cho nó các thông số để mạng hoạt động. DHCP server đáp ứng với các thông số yêu cầu – được điền trong phần tùy chọn của DHCP trong bản tin DHCP ACK.
+
+    - Nguồn: DHCP Client (địa chỉ IP đã được cấu hình).
+    - Đích: Địa chỉ Unicast đến DHCP Server.
+
+- Với `LEASE RENEWALL`:
+
+  - Mỗi lease có 2 mốc:
+
+    - T1(50%): Client gửi DHCP REQUEST (unicast) trực tiếp đến server đã cấp(Option 54).
+    - T2(87.5%): Nếu T1 thất bại, client broadcast REQUEST để bất kỳ server nào cùng scope có thể gia hạn.
+Nếu hết hạn mà không gia hạn được, client mất IP và quay về INIT (Discover lại).
 
 ## IV. Các thông điệp DHCP thường gặp
+![DHCP](../Img/thongdiep.png)
 
-### 1. DHCP Discover
+**DHCP Discover**:
 
-Client gửi để tìm DHCP Server khi chưa có IP.
+- **Mục đích:** Đây là thông điệp đầu tiên được gửi bởi một DHCP client khi nó khởi động hoặc kết nối vào mạng và chưa có địa chỉ IP. Mục đích là để tìm kiếm các máy chủ DHCP có sẵn trên mạng.
+- **Nguồn:** DHCP client (địa chỉ IP nguồn là 0.0.0.0).
+- **Đích:** Địa chỉ broadcast (255.255.255.255) hoặc địa chỉ broadcast của subnet.
 
-- Nguồn: `0.0.0.0`
-- Đích: `255.255.255.255`
-- Kiểu gửi: Broadcast
+**DHCP Offer**:
 
-### 2. DHCP Offer
+- **Mục đích:** Thông điệp này được gửi bởi DHCP server để phản hồi lại gói tin DHCP Discover từ client. Nó chứa một địa chỉ IP mà server sẵn sàng cấp phát, cùng với các thông số cấu hình mạng khác (subnet mask, default gateway, DNS server) và thời gian thuê (lease time).
+- **Nguồn:** DHCP server (địa chỉ IP của server).
+- **Đích:** Địa chỉ broadcast (255.255.255.255) hoặc địa chỉ broadcast của subnet.
 
-DHCP Server gửi để đề nghị một địa chỉ IP cho client.
+**DHCP Request**:
 
-Nó gồm IP và các thông số như gateway, DNS, subnet mask, lease time.
+- **Mục đích:** Thông điệp này được gửi bởi DHCP client trong hai trường hợp chính:
+  - **Chấp nhận Offer:** Sau khi nhận được một hoặc nhiều gói tin DHCP Offer, client sẽ chọn một (thường là gói đầu tiên) và gửi DHCP Request để thông báo cho server đã chọn biết rằng nó chấp nhận địa chỉ IP và các thông số cấu hình đã được đề nghị.
+  - **Gia hạn Lease:** Khi còn một nửa thời gian thuê, client sẽ gửi DHCP Request trực tiếp đến server đã cấp phát địa chỉ IP để yêu cầu gia hạn.
+- **Nguồn:** DHCP client (địa chỉ IP nguồn có thể là 0.0.0.0 nếu là yêu cầu sau Discover, hoặc địa chỉ IP đã được cấp phát nếu là yêu cầu gia hạn).
+- **Đích:** Địa chỉ broadcast (255.255.255.255) hoặc địa chỉ unicast đến DHCP server (nếu là yêu cầu gia hạn).
 
-### 3. DHCP Request
+**DHCP Acknowledge (DHCP ACK)**:
 
-Client gửi để chấp nhận IP được cấp hoặc để gia hạn IP đang dùng.
+- **Mục đích:** Thông điệp này được gửi bởi DHCP server để xác nhận rằng địa chỉ IP và các thông số cấu hình đã được cấp phát (hoặc gia hạn) thành công cho client.
+- **Nguồn:** DHCP server (địa chỉ IP của server).
+- **Đích:** Địa chỉ unicast đến DHCP client.
 
-Có 2 trường hợp phổ biến:
+**DHCP Negative Acknowledge (DHCP NAK)**:
 
-- Sau khi nhận Offer, client gửi Request để chấp nhận IP.
-- Khi sắp hết lease, client gửi Request để gia hạn IP.
+- **Mục đích:** Thông điệp này được gửi bởi DHCP server để thông báo cho client rằng yêu cầu của nó không được chấp nhận. Điều này có thể xảy ra nếu địa chỉ IP mà client yêu cầu không còn hợp lệ (ví dụ: đã được cấp phát cho máy khác) hoặc nếu có lỗi trong quá trình gia hạn. Client sẽ yêu cầu lại IP mới.
+- **Nguồn:** DHCP server (địa chỉ IP của server).
+- **Đích:** Địa chỉ unicast đến DHCP client.
 
-### 4. DHCP ACK
+**DHCP Release – Giải phóng IP**:
 
-DHCP Server gửi để xác nhận cấp IP thành công.
+- **Mục đích:** Thông điệp này được gửi bởi DHCP client để thông báo cho server biết rằng nó không còn sử dụng địa chỉ IP đã được cấp phát nữa. Điều này thường xảy ra khi client tắt máy hoặc ngắt kết nối mạng.
+- **Nguồn:** DHCP client (địa chỉ IP đã được cấp phát).
+- **Đích:** Địa chỉ unicast đến DHCP server.
 
-Sau gói này, client bắt đầu sử dụng IP.
+**DHCP Inform**:
 
-### 5. DHCP NAK
+- **Mục đích:** Thông điệp này được gửi bởi DHCP client để yêu cầu thêm các thông số cấu hình mạng từ server mà không cần cấp phát địa chỉ IP mới. Client có thể đã được cấu hình địa chỉ IP tĩnh hoặc nhận địa chỉ IP theo cách khác.
+- **Nguồn:** DHCP client (địa chỉ IP đã được cấu hình).
+- **Đích:** Địa chỉ unicast đến DHCP server.
 
-DHCP Server gửi khi không chấp nhận yêu cầu của client.
+**DHCP LEASE RENEWALL (Gia hạn thuê IP)**:
 
-Ví dụ:
+- Với `DHCP INFORM`:
 
-- Client xin lại IP cũ nhưng IP đó không còn hợp lệ.
-- Client đang ở sai subnet.
-- IP đã được cấp cho thiết bị khác.
+  - `T1(50%)`: Client gửi `DHCP REQUEST` (Unicast) trực tiếp đến Server đã cấp(Option 54).
+  - `T2(87.5%)`: Nếu `T1` thất bại, Client Broadcast REQUEST để bất kỳ server nào cùng scope có thể gia hạn.
 
-Khi nhận NAK, client phải quay lại xin IP từ đầu.
+-> Nếu hết hạn mà không gia hạn được, Client mất IP và quay về INIT (Discover lại).
 
-### 6. DHCP Release
-
-Client gửi để trả lại IP cho DHCP Server khi không dùng nữa.
-
-Ví dụ: Máy tính tắt máy hoặc ngắt kết nối mạng.
-
-### 7. DHCP Inform
-
-Client đã có IP tĩnh, nhưng vẫn muốn xin thêm thông tin như DNS hoặc gateway từ DHCP Server.
-
-DHCP Inform không dùng để xin IP mới.
-
-## V. Gia hạn địa chỉ IP
-
-Địa chỉ IP do DHCP cấp không phải lúc nào cũng dùng vĩnh viễn. Nó có thời gian thuê gọi là **Lease Time**.
-
-Quá trình gia hạn:
-
-- Khi đạt **50% thời gian lease (T1)**, client gửi DHCP Request bằng unicast đến DHCP Server đã cấp IP.
-- Nếu không thành công, đến **87.5% thời gian lease (T2)**, client gửi Request bằng broadcast để tìm server có thể gia hạn.
-- Nếu hết lease mà vẫn không gia hạn được, client mất IP và phải Discover lại từ đầu.
-
-Ví dụ: Lease Time là 8 giờ.
-
-- Sau 4 giờ, client bắt đầu xin gia hạn.
-- Nếu thất bại, đến khoảng 7 giờ, client thử lại bằng broadcast.
-- Nếu hết 8 giờ vẫn thất bại, client không được dùng IP đó nữa.
-
-## VI. Ưu điểm và nhược điểm của DHCP
+## V. Ưu điểm và nhược điểm của DHCP
+![DHCP](../Img/uudiem.png)
 
 ### 1. Ưu điểm
 
@@ -244,7 +245,7 @@ Ví dụ: Lease Time là 8 giờ.
 - **Có rủi ro bảo mật:** DHCP không xác thực client mặc định, nên có thể xuất hiện DHCP Server giả mạo.
 - **Cần DHCP Relay nếu khác subnet:** Client và server khác mạng thì phải cấu hình relay.
 
-## VII. Lỗi DHCP thường gặp
+## VI. Lỗi DHCP thường gặp
 
 ### 1. Client nhận IP 169.254.x.x
 
