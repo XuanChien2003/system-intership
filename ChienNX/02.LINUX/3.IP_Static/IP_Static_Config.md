@@ -8,14 +8,17 @@ sudo vim /etc/netplan/50-cloud-init.yaml
 
 Kết quả:
 
+![altimage](../3.IP_Static/Img/img1.png)
 
 Ấn `i` để chỉnh sửa nội dung, chỉnh sửa nội dung trong [ipv4] thành:
+
+![altimage](../3.IP_Static/Img/img2.png)
 
 
 - `ens33`: Tên card mạng.
 - `dhcl3: no`: tắt DHCP để dùng IP tĩnh.
-- `addresses: - 192.168.154.128/24` địa chỉ IP và subnet mask.
-- `gateway4: 192.168.154.2` gateway: bởi địa chỉ 192.168.154.1 là địa chỉ IP của máy tính thật đóng vai trò là NAT.
+- `addresses: - 192.168.116.132/24` địa chỉ IP và subnet mask.
+- `gateway4: 192.168.116.2` gateway: bởi địa chỉ 192.168.116.1 là địa chỉ IP của máy tính thật đóng vai trò là NAT.
 
 Chỉnh sửa xong, ấn `Esc` để thoát khỏi chế độ `Insert`. Tiếp đó nhập `:wq` và `Enter` để lưu cấu hình.
 
