@@ -29,8 +29,6 @@ Trong Linux, các device driver thường được xây dựng dưới dạng mo
   - `lspci -v` / `lsusb -v`: Xem thông tin chi tiết thiết bị PCI/USB.
   - `dmesg | tail -20`: Kiểm tra các thông điệp liên quan đến phần cứng từ kernel.
 
-![Sơ đồ kiến trúc Kernel Linux và Module](../4.AdanceInstallation/img/image1.png)
-
 ## II. Tổng Quan Hệ Thống Lưu Trữ Linux (Linux Storage Systems)
 
 ### 1. Swap & Storage Layout
@@ -42,7 +40,7 @@ Trong Linux, các device driver thường được xây dựng dưới dạng mo
 - `df -h`: Kiểm tra không gian còn trống và đã dùng trên các phân vùng **đã được mount** (cho biết phòng đã chứa bao nhiêu đồ đạc).
 - `fdisk` / `parted`: Trình phân vùng dòng lệnh. Sử dụng `fdisk` để tạo (`n`), xóa (`d`), xem bảng (`p`) và lưu (`w`) các phân vùng. VD: `sudo fdisk /dev/sdb`.
 
-![Kết quả lệnh lsblk hiển thị cấu trúc ổ đĩa](https://raw.githubusercontent.com/tenox7/lsblk/master/lsblk.png)
+![Kết quả lệnh lsblk hiển thị cấu trúc ổ đĩa](../4.AdanceInstallation/img/img7.png)
 
 ### 3. Định Dạng File System
 - `ext4`: Kiểu chuẩn mực, phổ biến mặc định trên nhiều distros.

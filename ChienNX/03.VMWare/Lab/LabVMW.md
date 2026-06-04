@@ -47,7 +47,7 @@ Nếu chưa có:
 
 ### `Bước 2:` Cấu hình/ Check IP tĩnh cho mỗi máy ảo
 
--Ta dùng lệnh `ip a` ra ip tĩnh cho cả 2 máy ảo CentOs(192.168.60.70) và Unbutu(192.168.157.168).Lúc này ta chỉ cần chỉnh sửa sao cho 2 máy trùng dải mạng là `192.168.157.X` và ta sẽ chỉnh ở con CentOS.
+-Ta dùng lệnh `ip a` ra ip tĩnh cho cả 2 máy ảo CentOs(192.168.116.134) và Unbutu(192.168.116.132).Lúc này ta chỉ cần chỉnh sửa sao cho 2 máy trùng dải mạng là `192.168.116.X` và ta sẽ chỉnh ở con CentOS.
 
 **Trên máy ảo CentOS 9:**
 
