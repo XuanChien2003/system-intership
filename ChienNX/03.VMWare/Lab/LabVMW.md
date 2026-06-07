@@ -14,9 +14,9 @@
 
 ### `Bước 2:` Kiểm tra và kết nối internet
 
-1. Ping kiểm tra kết nối internet(ping 4 gói gửi đi)
+1. Ping kiểm tra kết nối internet (gửi đi 4 gói tin):
 
-```ruby
+```bash
 sudo ping -c 4 google.com
 ```
 
@@ -29,7 +29,7 @@ Nếu nhận được phản hồi, máy ảo đã kết nối internet thành c
 ### `Bước 1:` Cấu hình card mạng Host-Only trên VMware
 
 1. Chọn CentOS 9 → Edit virtual machine settings → Chọn Network Adapter → Tích chọn Host-Only → OK để lưu cấu hình.
-2. Lặp lại các bước trên Unbuntu Server.
+2. Lặp lại các bước trên Ubuntu Server.
 
 ![VMW](../Img/img8.png)
 
@@ -45,55 +45,63 @@ Nếu chưa có:
 - Chọn Add Network → VMnet1 → Host-Only.
 - Đặt dải IP (ví dụ: 192.168.186.0/24).
 
-### `Bước 2:` Cấu hình/ Check IP tĩnh cho mỗi máy ảo
+### `Bước 2:` Cấu hình IP tĩnh cho máy ảo
 
--Ta dùng lệnh `ip a` ra ip tĩnh cho cả 2 máy ảo CentOs(192.168.116.134) và Unbutu(192.168.116.132).Lúc này ta chỉ cần chỉnh sửa sao cho 2 máy trùng dải mạng là `192.168.116.X` và ta sẽ chỉnh ở con CentOS.
+Để hai máy ảo có thể kết nối được với nhau, cả hai phải được thiết lập địa chỉ IP thuộc cùng một dải mạng. Trong tài liệu này, ta sử dụng dải mạng `192.168.116.X`.
+
+* **Máy CentOS 9:** `192.168.116.134`
+* **Máy Ubuntu Server:** `192.168.116.132`
 
 **Trên máy ảo CentOS 9:**
 
-- Chỉnh sửa file cấu hình card mạng:
+- Sử dụng công cụ `nmtui` để cấu hình IP tĩnh cho card mạng (thường là `ens160`):
 
-```ruby
-sudo nano /etc/NetworkManager/systemconnections/ens160.nmconnection
-```
+  ```bash
+  sudo nmtui
+  ```
+    ![VMW](../Img/B1.png)
 
-Cập nhật thêm thông tin nội dung như sau:
+    ![VMW](../Img/B2.png)
 
-![VMW](../Img/img10.png)
+  - Chọn **Edit a connection** &rarr; Chọn **Wired connection 1**.
+  - Tại phần **IPv4 CONFIGURATION**, chọn `<Manual>` và điền các thông tin:
+    - **Addresses**: `192.168.116.134/24`
+    - **Gateway**: `192.168.116.2`
+    - **DNS servers**: `8.8.8.8`
+  - Chọn `<OK>` để lưu, sau đó thoát khỏi `nmtui`.
 
-Lưu và khởi động lại card mạng:
+    ![VMW](../Img/B3.png)
 
-```ruby
-sudo systemctl restart network
-```
+- Khởi động lại card mạng để áp dụng cấu hình:
 
-kiểm tra lại địa chỉ IP:
+  ```bash
+  sudo nmcli connection up "Wired connection 1"
+  ```
 
-```ruby
-ip addr
-```
+- Kiểm tra lại địa chỉ IP sau khi cấu hình:
 
-**Kiểm tra kết nối giữa 2 máy ảo:**
+  ```bash
+  ip a
+  ```
 
-Từ CentOS 9 ping tới Ubuntu Server:
+- Kiểm tra kết nối giữa 2 máy ảo:
+  - Từ CentOS 9 ping tới Ubuntu Server (`192.168.116.132`):
 
-```ruby
-ping 192.168.157.128
-```
+    ```bash
+    ping -c 4 192.168.116.132
+    ```
 
-kết quả ping thành công:
 
-![VMW](../Img/img11.png)
+     ![VMW](../Img/B4.png)
+    *Kết quả:* Thông báo `0% packet loss` cho thấy kết nối đã thành công.
 
-Từ Ubuntu Server ping tới CentOS 9:
+  - Từ Ubuntu Server ping tới CentOS 9 (`192.168.116.134`):
 
-```ruby
-ping 192.168.157.62
-```
+    ```bash
+    ping -c 4 192.168.116.134
+    ```
 
-Kết quả ping thành công:
-
-![VMW](../Img/img12.png)
+    *Kết quả:* Kết nối thành công.
 
 ## III. Sử dụng 1 card Bridged để từ máy ảo ping ra máy laptop cá nhân
 
@@ -101,48 +109,48 @@ Kết quả ping thành công:
 
 ### `Bước 1:` Kiểm tra cấu hình mạng
 
--Trên laptop cá nhân, kiểm tra địa chỉ IP trong mạng LAN:
+- Trên laptop cá nhân, kiểm tra địa chỉ IP trong mạng LAN:
+- Trên Windows, mở CMD và nhập lệnh:
 
--Trên Window, mở CMD và nhập lệnh:
+  ```cmd
+  ipconfig
+  ```
 
-`ipconfig`
-
-Nếu laptop kết nối có dây, sử dụng địa chỉ trong Ethernet adapter Ethernet. Nếu kết nối không dây, sử dụng địa chỉ trong Wireless LAN adapter Wi-Fi.
+  Nếu laptop kết nối có dây, sử dụng địa chỉ trong `Ethernet adapter Ethernet`. Nếu kết nối không dây, sử dụng địa chỉ trong `Wireless LAN adapter Wi-Fi`.
 
 ### `Bước 2:` Cấu hình IP cho máy ảo
 
 **Cách 1: Sử dụng DHCP (IP động):**
 
--Do CentOS 9 đã bỏ phần Network-Scripts (không có sẵn) lên ta sẽ dùng 'nmcli' để quản lí
+- Do CentOS 9 đã bỏ phần Network-Scripts (không có sẵn) nên ta sẽ dùng `nmcli` để quản lý.
+- Đặt chế độ DHCP bằng lệnh `nmcli`:
 
--Đặt chế độ DHCP bằng lệnh `nmcli`:
+  ```bash
+  sudo nmcli connection modify ens160 ipv4.method auto
+  sudo nmcli connection up ens160
+  ```
 
-```ruby
-sudo nmcli connection modify ens160 ipv4.method auto
-sudo nmcli connection up ens160
-```
+- Kiểm tra lại IP xem đã có chưa:
 
--Check lại IP xem đã có chưa:
-
-```ruby
-ip a show dev ens160
-```
+  ```bash
+  ip a show dev ens160
+  ```
 
 **Cách 2: Cài đặt IP tĩnh (Nếu không muốn dùng DHCP):**
 
-**Lưu ý quan trọng:** Chọn địa chỉ IP chưa sử dụng và cùng dải với laptop không thì sẽ gặp tình trạng lỗi nếu đang ở trong 1 mạng LAN có địa chỉ trùng với địa chỉ đó.
+**Lưu ý quan trọng:** Chọn địa chỉ IP chưa sử dụng và cùng dải với laptop để tránh bị xung đột IP trong mạng LAN.
 
-`CentOS 9:`
+**CentOS 9:**
 
 Mở cấu hình mạng:
 
-```ruby
+```bash
 sudo vi /etc/sysconfig/network-scripts/ifcfg-ens160
 ```
 
 Cập nhật nội dung:
 
-```ruby
+```ini
 TYPE="Ethernet"
 BOOTPROTO="none"
 ONBOOT="yes"
@@ -150,27 +158,30 @@ IPADDR=192.168.1.50
 NETMASK=255.255.255.0
 GATEWAY=192.168.1.1
 DNS1=8.8.8.8
-Trong đó IPADDR là địa chỉ cùng dải mạng và khác host với IP của laptop. GATEWAY trùng với Default Gateway của laptop để truy cập mạng.
 ```
+
+*Trong đó:*
+- `IPADDR` là địa chỉ cùng dải mạng và khác host với IP của laptop.
+- `GATEWAY` trùng với Default Gateway của laptop để truy cập mạng.
 
 Lưu file và khởi động lại mạng:
 
-```ruby
+```bash
 sudo systemctl restart network
 ```
 
 ### `Bước 3:` Kiểm tra kết nối
 
-Từ laptop ping tới máy ảo: Trên window (CMD)
+- Từ laptop ping tới máy ảo (trên Windows CMD):
 
-```ruby
-ping 192.168.3.58
-```
+  ```cmd
+  ping 192.168.3.58
+  ```
 
-Kết quả ping thành công:
+  Kết quả ping thành công:
 
-```text
-successfully ping to vm
-```
+  ```text
+  successfully ping to vm
+  ```
 
--Từ máy ảo ping tới laptop: thực hiện tương tự
+- Từ máy ảo ping tới laptop: thực hiện tương tự.

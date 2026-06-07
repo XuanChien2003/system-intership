@@ -1,26 +1,34 @@
 **Mô hình TCP/IP** (Transmission Control Protocol/Internet Protocol) là bộ giao thức mạng được thiết kế để kết nối các máy tính và là **"bộ xương sống" của Internet** hiện nay,. Nó cung cấp khả năng truyền tải dữ liệu độc lập với kiến trúc phần cứng, cho phép các loại máy tính khác nhau có thể tương tác trên quy mô toàn cầu,.
 
 ### 1. Các tầng (layers) của mô hình TCP/IP
-Mô hình TCP/IP tiêu chuẩn bao gồm **4 tầng** như sau:
+Mô hình TCP/IP tiêu chuẩn bao gồm **4 tầng** cơ bản được sắp xếp từ cao xuống thấp như sau:
 
 ![Tcp](/ChienNX/01.CCNA/3.TCP/IP/Img/tcp-ip_model.png)
 
-*   **Tầng Ứng dụng (Application Layer):**
-    *   **Khái niệm:** Là tầng giao tiếp cao nhất, cung cấp các dịch vụ mạng trực tiếp cho người dùng,.
-    *   **Đặc điểm:** Kết hợp chức năng của các tầng Phiên, Trình bày và Ứng dụng trong OSI,.
-    *   **Chức năng:** Trao đổi dữ liệu qua các giao thức như **HTTP/HTTPS** (duyệt web), **SMTP** (email), **FTP** (truyền tệp),.
-*   **Tầng Giao vận (Transport Layer):**
-    *   **Khái niệm:** Đảm bảo truyền dữ liệu tin cậy giữa các ứng dụng trên các thiết bị khác nhau.
-    *   **Đặc điểm:** Sử dụng hai giao thức cốt lõi là **TCP** (tin cậy, kiểm soát lỗi chặt chẽ) và **UDP** (nhanh chóng nhưng không đảm bảo chất lượng),.
-    *   **Chức năng:** Phân đoạn dữ liệu (segmentation), kiểm soát lưu lượng và sửa lỗi để đảm bảo dữ liệu đến đúng thứ tự và không bị hỏng,.
-*   **Tầng Mạng/Internet (Network/Internet Layer):**
-    *   **Khái niệm:** Chịu trách nhiệm định tuyến các gói tin qua mạng.
-    *   **Đặc điểm:** Sử dụng giao thức **IP** để xác định địa chỉ duy nhất cho mỗi thiết bị.
-    *   **Chức năng:** Định tuyến (routing), phân mảnh và tái tổ hợp các gói tin (packets) để chúng đến đúng đích.
-*   **Tầng Truy cập mạng (Network Access Layer):**
-    *   **Khái niệm:** Xử lý việc gửi và nhận dữ liệu trên phương tiện vật lý.
-    *   **Đặc điểm:** Là sự kết hợp giữa tầng Vật lý và Liên kết dữ liệu của mô hình OSI,.
-    *   **Chức năng:** Đóng gói dữ liệu thành khung (frame), quản lý địa chỉ vật lý (MAC) và truyền luồng bit qua cáp hoặc sóng vô tuyến,.
+* **Tầng Ứng dụng (Application Layer - Tầng 4):**
+    * **Khái niệm:** Là lớp giao tiếp trên cùng của mô hình, đảm nhận vai trò tổ chức và trao đổi dữ liệu trực tiếp giữa hai thiết bị/máy tính khác nhau thông qua các dịch vụ mạng.
+    * **Đặc điểm:** Kết hợp hoàn chỉnh chức năng của 3 tầng cao nhất trong mô hình OSI (Phiên, Trình bày và Ứng dụng). Khi truyền xuống đây, dữ liệu sẽ được định dạng theo cấu trúc chuỗi liên tục (kiểu chuỗi Byte nối Byte).
+    * **Chức năng & Giao thức:** * Cung cấp các giao thức dịch vụ quen thuộc cho người dùng như: duyệt web (**HTTP/HTTPS**), gửi/nhận email (**SMTP**), cấu hình và quản trị từ xa (**SSH**), truyền tải tập tin (**FTP**), ứng dụng chat,...
+        * Chuẩn bị sẵn luồng dữ liệu thô cùng các thông tin cần thiết để các tầng bên dưới thực hiện đóng gói và tìm đường đi (định tuyến) chính xác cho gói tin.
+
+* **Tầng Giao vận (Transport Layer - Tầng 3):**
+    * **Khái niệm:** Chịu trách nhiệm quản lý luồng truyền thông end-to-end (đầu-cuối) giữa các máy chủ trong cùng một mạng hoặc khác mạng được kết nối với nhau thông qua bộ định tuyến (Router).
+    * **Đặc điểm:** Tại đây dữ liệu từ tầng trên xuống sẽ được phân đoạn thành các **Segment**. Các phân đoạn này có thể có kích thước không bằng nhau nhưng tổng dung lượng phải nhỏ hơn 64KB để phù hợp với giới hạn truyền tải. Cấu trúc đầy đủ của một Segment lúc này bao gồm phần **Header** chứa thông tin điều khiển và phần **Dữ liệu (Data)** phía sau.
+    * **Chức năng & Giao thức:** Sử dụng hai giao thức cốt lõi với hai đặc tính trái ngược nhau:
+        * **TCP (Transmission Control Protocol):** Đảm bảo chất lượng truyền tải tối đa. TCP thực hiện kiểm tra nghiêm ngặt thứ tự dữ liệu, sửa lỗi và kiểm soát hiện tượng tắc nghẽn lưu lượng (đổi lại sẽ tốn nhiều thời gian kiểm tra thông tin hơn).
+        * **UDP (User Datagram Protocol):** Ưu tiên tốc độ truyền tải cực nhanh và độ trễ thấp, tuy nhiên cấu trúc truyền không hướng kết nối nên không đảm bảo tính toàn vẹn và chất lượng dữ liệu được gửi đi.
+
+* **Tầng Mạng / Internet (Internet Layer - Tầng 2):**
+    * **Khái niệm:** Gần giống như tầng mạng của mô hình OSI, đóng vai trò định nghĩa các giao thức chịu trách nhiệm định vị và truyền tải dữ liệu một cách logic xuyên suốt trong hệ thống mạng.
+    * **Đặc điểm:** Các phân đoạn dữ liệu (Segment) từ tầng giao vận chuyển xuống sẽ được đóng gói thành các **Gói tin (Packets)**. Kích thước của mỗi gói tin được điều chỉnh tự động sao cho tương thích với hạ tầng mạng chuyển mạch mà nó dùng để truyền đi. Lúc này, gói tin được chèn thêm phần **Network Header** chứa thông tin định danh của tầng mạng và tiếp tục chuyển xuống tầng dưới.
+    * **Chức năng & Giao thức:** * Sử dụng các giao thức nền tảng chính bao gồm: **IP** (Định địa chỉ logic nguồn và đích), **ICMP** (Chẩn đoán, kiểm tra lỗi mạng như lệnh Ping), và **ARP** (Phân giải địa chỉ IP sang địa chỉ MAC vật lý).
+        * Thực hiện thuật toán tìm đường (Routing - Định tuyến) để chuyển các gói tin qua nhiều phân đoạn mạng khác nhau nhằm đến đích tối ưu nhất.
+
+* **Tầng Truy cập mạng / Vật lý (Network Access / Physical Layer - Tầng 1):**
+    * **Khái niệm:** Là tầng thấp nhất trong kiến trúc TCP/IP, chịu trách nhiệm trực tiếp trong việc truyền dẫn dữ liệu vật lý giữa hai thiết bị phần cứng kề nhau trong cùng một mạng cục bộ (LAN).
+    * **Đặc điểm:** Đây là sự kết hợp đồng thời giữa hai tầng thấp nhất của mô hình OSI là tầng Vật lý (Physical) và tầng Liên kết dữ liệu (Data Link).
+    * **Chức năng:** * Tiếp nhận gói tin từ tầng Internet, đóng gói chúng thành các khung dữ liệu (**Frames**) hoàn chỉnh.
+        * Quản lý địa chỉ vật lý (Địa chỉ MAC) và điều phối quyền truy cập đường truyền. Sau đó, biến đổi toàn bộ cấu trúc Frame thành luồng các **bít (0 và 1)** để phát đi dưới dạng tín hiệu vật lý (điện áp qua cáp đồng, xung ánh sáng qua cáp quang, hoặc sóng vô tuyến qua không gian Wi-Fi) đến đích đã được chỉ định ban đầu.
 
 ### 2. So sánh mô hình TCP/IP và mô hình OSI
 
