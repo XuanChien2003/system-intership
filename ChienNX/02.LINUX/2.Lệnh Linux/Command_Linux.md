@@ -30,10 +30,10 @@
 |`rmdir`| Xóa thư mục trống | `rmdir old_folder`|
 |`rm -r`| Xóa thư mục và tệp bên trong | `rm -r my_folder`|
 |`touch`| Tạo tệp mới trống | `touch newfile.txt`|
-|`echo`| Thêm nội dung vào tệp hoặc tạo tệp mới | `echo "contents" >/>> myfile.txt` |
+|`echo`| Thêm nội dung vào tệp hoặc tạo tệp mới | `echo "contents" > myfile.txt` hoặc `>> myfile.txt` |
 |`cp`| Sao chép tệp hoặc thư mục | `cp document.txt /tmp/` |
-|`mv`| Di chuyển hoặc đổi tên tệp/ thư mục| ` cp document.txt /tmp/` `cp document.txt new.txt`|
-|`find`| Tìm kiếm tập tin hoặc thư mục và tất cả các file bên trong| `find /home - name "*.txt"/"abc.txt"` |
+|`mv`| Di chuyển hoặc đổi tên tệp/thư mục| `mv document.txt /tmp/` hoặc `mv document.txt new.txt`|
+|`find`| Tìm kiếm tập tin hoặc thư mục và tất cả các file bên trong| `find /home -name "*.txt"` |
 |`locate`| Tìm kiếm tệp tin nhanh | `locate example.txt`|
 
 #### 2.1 Bổ sung chi tiết

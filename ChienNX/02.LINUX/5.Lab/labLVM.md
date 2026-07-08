@@ -169,9 +169,9 @@
   $ umount /dev/vg-demo/lv-demo
   ```
 
-- Tiến hành giảm kích thước của Logical Volume
+- Tiến hành giảm kích thước của Logical Volume (chú ý: với ext4, phải thu nhỏ File System trước khi thu nhỏ Logical Volume để tránh mất dữ liệu).
 
-  ```bash
+<!--   ```bash
   $ lvreduce -L 20M /dev/vg-demo/lv-demo
   ```
 
@@ -179,6 +179,17 @@
 
   ```bash
   mkfs -t ext4 /dev/vg-demo/lv-demo
+  ``` -->
+
+  ```bash
+  # 1. Kiểm tra lỗi file system
+  $ e2fsck -f /dev/vg-demo/lv-demo
+
+  # 2. Thu nhỏ file system xuống kích thước mong muốn (VD: 20M)
+  $ resize2fs /dev/vg-demo/lv-demo 20M
+
+  # 3. Thu nhỏ Logical Volume
+  $ lvreduce -L 20M /dev/vg-demo/lv-demo
   ```
 
 - Cuối cùng là mount lại Logical Volume

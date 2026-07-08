@@ -16,9 +16,11 @@ Kết quả:
 
 
 - `ens33`: Tên card mạng.
-- `dhcl3: no`: tắt DHCP để dùng IP tĩnh.
+<!-- - `dhcl3: no`: tắt DHCP để dùng IP tĩnh. -->
+- `dhcp4: no` (hoặc `dhcp4: false`): tắt DHCP để dùng IP tĩnh.
 - `addresses: - 192.168.116.132/24` địa chỉ IP và subnet mask.
-- `gateway4: 192.168.116.2` gateway: bởi địa chỉ 192.168.116.1 là địa chỉ IP của máy tính thật đóng vai trò là NAT.
+<!-- - `gateway4: 192.168.116.2` gateway: bởi địa chỉ 192.168.116.1 là địa chỉ IP của máy tính thật đóng vai trò là NAT. -->
+- `gateway4: 192.168.116.2` (hoặc cấu hình qua `routes` đối với bản netplan mới): gateway, bởi địa chỉ 192.168.116.1 là địa chỉ IP của máy tính thật đóng vai trò là NAT.
 
 Chỉnh sửa xong, ấn `Esc` để thoát khỏi chế độ `Insert`. Tiếp đó nhập `:wq` và `Enter` để lưu cấu hình.
 
@@ -50,13 +52,17 @@ Sau khi thực hiện thay đổi, cần restart để áp dụng thay đổi:
 
 `Cách 2`: Dùng nmcli (NetworkManager CLI)
 
-Vì trong CentOS 9, User không có quyền dùng sudo nên phải về trạng thái root:
+Vì trong CentOS 9, nếu User chưa được cấp quyền dùng sudo thì phải chuyển về trạng thái root:
 - `su -`: Chuyển từ trạng thái User -> Root
-- `nmcli connection show`: Xem danh sách card mạng ( Ở đây chỉ có mình card ens160).
-- `sudo nmcli connection modify ens160 ipv4.address 192.168.154.129/24`: đặt IP tĩnh
-- `sudo nmcli connection modify ens160 ipv4.gateway 192.168.154.3`: Đặt Gateway
-- `sudo nmcli connection modify ens160 ipv4.method manual`: chuyển chế độ IP tĩnh
-- `sudo nmcli connection up ens160`: Áp dụng thay đổi.
+- `nmcli connection show`: Xem danh sách card mạng (Ở đây chỉ có mình card ens160).
+<!-- - `sudo nmcli connection modify ens160 ipv4.address 192.168.154.129/24`: đặt IP tĩnh -->
+- `nmcli connection modify ens160 ipv4.address 192.168.154.129/24`: đặt IP tĩnh (khi đã là root thì không cần sudo)
+<!-- - `sudo nmcli connection modify ens160 ipv4.gateway 192.168.154.3`: Đặt Gateway -->
+- `nmcli connection modify ens160 ipv4.gateway 192.168.154.3`: Đặt Gateway
+<!-- - `sudo nmcli connection modify ens160 ipv4.method manual`: chuyển chế độ IP tĩnh -->
+- `nmcli connection modify ens160 ipv4.method manual`: chuyển chế độ IP tĩnh
+<!-- - `sudo nmcli connection up ens160`: Áp dụng thay đổi. -->
+- `nmcli connection up ens160`: Áp dụng thay đổi.
 
 ### Một số lỗi gặp phải khi fix CentOS 9
 - Đây là lỗi DNS/network → máy CentOS không phân giải được tên miền mirrors.centos.org.

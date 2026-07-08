@@ -50,7 +50,7 @@ Câu lệnh lúc này là `ssh username@dia_chi_ip -p port_number`
 
 ### 5.2 Kết nối bằng khóa bảo mật (SSH Key)
 - Việc kết nối bằng khóa bảo mật cũng sử dụng câu lệnh `ssh username@dia_chi_ip` tương tự như trên, nhưng phải qua một số bước cấu hình cả ở trên máy client cũng như server
-- Chi tiết tại [SSH](./labs/lab.md)
+- Chi tiết tại [Lab SSH](../5.Lab/labSsh.md)
 
 ## 6. SSH HOẠT ĐỘNG NHƯ THẾ NÀO 
 ![SSH Overview](../4.AdanceInstallation/img/Ssh.png)

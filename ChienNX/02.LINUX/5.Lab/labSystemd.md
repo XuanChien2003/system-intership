@@ -51,7 +51,8 @@ systemctl is-enabled systemd-boot-check-no-failures.service
 ```
 ![altimage](../5.Lab/Img/Systemd6.png)
 
-# 7. Xem log service
+<!-- # 7. Xem log service -->
+# 6. Xem log service
 
 ![altimage](../5.Lab/Img/Systemd7.png)
 
