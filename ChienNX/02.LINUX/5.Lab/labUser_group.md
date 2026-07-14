@@ -76,9 +76,6 @@ Di chuyển
 ```bash
 cd /labchmod
 ```
-
-> Từ đây trở đi, file nào dùng đến ở ví dụ nào thì mới tạo ở ví dụ đó (không tạo sẵn toàn bộ file ngay từ đầu).
-
 ---
 
 # Ví dụ 1. Thêm quyền Execute cho Owner
@@ -109,9 +106,7 @@ Owner: `rw-` · Group: `r--` · Others: `r--`
 
 Kết quả:
 
-```text
-bash: ./script.sh: Permission denied
-```
+![altimage](../5.Lab/Img/Chmod90.png)
 
 ---
 
@@ -1151,9 +1146,7 @@ Owner chỉ còn đọc/ghi, quyền thực thi bị xóa. Group/Others vẫn kh
 ls -l project.txt
 ```
 
-```text
--r-xr-xr-x 1 chien2003 developers 0 Jul 10 project.txt
-```
+![altimage](../5.Lab/Img/Chmod81.png)
 
 Ý nghĩa: Owner `r-x` · Group `r-x` · Others `r-x`
 
@@ -1162,6 +1155,7 @@ ls -l project.txt
 ```bash
 echo "x" >> project.txt   # Permission denied (đã không có w từ trước)
 ```
+![altimage](../5.Lab/Img/Chmod82.png)
 
 ---
 
@@ -1179,15 +1173,14 @@ chmod 555 project.txt
 ls -l project.txt
 ```
 
-```text
--r-xr-xr-x 1 chien2003 developers 0 Jul 10 project.txt
-```
+![altimage](../5.Lab/Img/Chmod83.png)
 
 **Test lại**
 
 ```bash
 # chien2003, nxc, appuser: cat project.txt -> OK; ./project.txt -> OK; echo "x">>project.txt -> Permission denied
 ```
+![altimage](../5.Lab/Img/Chmod84.png)
 
 Giải thích
 
@@ -1205,9 +1198,7 @@ File đã có quyền 555 từ trước nên hành vi không đổi: ai cũng đ
 ls -l demo.txt
 ```
 
-```text
--rwxrwxrwx 1 chien2003 developers 0 Jul 10 demo.txt
-```
+![altimage](../5.Lab/Img/Chmod85.png)
 
 Ý nghĩa: Owner `rwx` · Group `rwx` · Others `rwx`
 
@@ -1216,7 +1207,7 @@ ls -l demo.txt
 ```bash
 cat demo.txt   # đọc được
 ```
-
+![altimage](../5.Lab/Img/Chmod86.png)
 ---
 
 ### Thực hiện
@@ -1233,9 +1224,7 @@ chmod 000 demo.txt
 ls -l demo.txt
 ```
 
-```text
----------- 1 chien2003 developers 0 Jul 10 demo.txt
-```
+![altimage](../5.Lab/Img/Chmod87.png)
 
 **Test lại**
 
@@ -1245,6 +1234,8 @@ ls -l demo.txt
 # appuser (others): cat demo.txt -> Permission denied
 ```
 
+![altimage](../5.Lab/Img/Chmod88.png)
+
 **Test riêng với root**
 
 ```bash
@@ -1252,7 +1243,9 @@ exit   # thoát về root nếu đang ở user khác
 cat /labchmod/demo.txt
 ```
 
-Kết quả: root vẫn đọc được bình thường, không bị ảnh hưởng bởi quyền file.
+Kết quả: 
+
+![altimage](../5.Lab/Img/Chmod89.png)
 
 Giải thích
 
